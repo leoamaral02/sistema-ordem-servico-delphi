@@ -1,0 +1,24 @@
+# Delphi - arquivos compilados
+*.dcu
+*.exe
+*.dll
+*.~*
+*.local
+*.identcache
+*.tvsconfig
+
+# Arquivos locais do Delphi
+*.dsk
+*.dproj.local
+*.groupproj.local
+
+# Pastas geradas pelo Delphi
+__history/
+__recovery/
+Win32/
+Win64/
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.log
