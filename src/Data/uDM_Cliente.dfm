@@ -3,6 +3,7 @@ object DM_Cliente: TDM_Cliente
   Height = 252
   Width = 332
   object qryClienteLista: TFDQuery
+    Active = True
     Connection = DM_Conexao.FDConexao
     SQL.Strings = (
       'SELECT ID, NOME, DOCUMENTO, EMAIL, TELEFONE, DATACADASTRO'
