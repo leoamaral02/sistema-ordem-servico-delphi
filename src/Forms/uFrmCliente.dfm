@@ -15,12 +15,22 @@ object FrmCliente: TFrmCliente
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
-    Left = 32
-    Top = 48
-    Width = 769
+    AlignWithMargins = True
+    Left = 12
+    Top = 12
+    Width = 810
     Height = 265
+    Margins.Left = 12
+    Margins.Top = 12
+    Margins.Right = 12
+    Margins.Bottom = 12
+    Align = alTop
     Caption = 'Dados do Cliente'
     TabOrder = 0
+    ExplicitLeft = 17
+    DesignSize = (
+      810
+      265)
     object Label1: TLabel
       Left = 37
       Top = 50
@@ -40,6 +50,7 @@ object FrmCliente: TFrmCliente
       Top = 108
       Width = 49
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Telefone :'
     end
     object Label2: TLabel
@@ -47,20 +58,23 @@ object FrmCliente: TFrmCliente
       Top = 50
       Width = 61
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Documento :'
     end
     object edtnome: TEdit
       Left = 34
       Top = 69
-      Width = 383
+      Width = 327
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
     end
     object edtemail: TEdit
       Left = 34
       Top = 127
-      Width = 383
+      Width = 327
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
     end
     object edttelefone: TEdit
@@ -68,6 +82,7 @@ object FrmCliente: TFrmCliente
       Top = 127
       Width = 281
       Height = 21
+      Anchors = [akTop, akRight]
       TabOrder = 2
     end
     object edtdocumento: TEdit
@@ -75,63 +90,75 @@ object FrmCliente: TFrmCliente
       Top = 69
       Width = 281
       Height = 21
+      Anchors = [akTop, akRight]
       TabOrder = 3
     end
     object btnnovo: TButton
-      Left = 110
+      Left = 34
       Top = 192
       Width = 99
       Height = 33
+      Anchors = [akTop, akBottom]
       Caption = 'Novo'
       TabOrder = 4
       OnClick = btnnovoClick
     end
-    object btneditar: TButton
-      Left = 246
-      Top = 192
-      Width = 99
-      Height = 33
-      Caption = 'Editar'
-      TabOrder = 5
-    end
     object btnsalvar: TButton
-      Left = 382
+      Left = 158
       Top = 192
       Width = 99
       Height = 33
+      Anchors = [akTop, akBottom]
       Caption = 'Salvar'
-      TabOrder = 6
+      TabOrder = 5
       OnClick = btnsalvarClick
     end
     object btnexcluir: TButton
-      Left = 518
+      Left = 263
       Top = 192
       Width = 99
       Height = 33
+      Anchors = [akTop, akBottom]
       Caption = 'Excluir'
-      TabOrder = 7
+      TabOrder = 6
       OnClick = btnexcluirClick
     end
   end
   object GroupBox2: TGroupBox
-    Left = 32
-    Top = 336
-    Width = 769
-    Height = 249
+    AlignWithMargins = True
+    Left = 12
+    Top = 301
+    Width = 810
+    Height = 300
+    Margins.Left = 12
+    Margins.Top = 12
+    Margins.Right = 12
+    Margins.Bottom = 12
+    Align = alClient
+    Anchors = [akLeft, akTop, akRight]
     Caption = 'Buscar Clientes'
     TabOrder = 1
+    ExplicitLeft = 34
+    ExplicitTop = 336
+    ExplicitWidth = 769
+    ExplicitHeight = 249
+    DesignSize = (
+      810
+      300)
     object edtbuscar: TEdit
       Left = 37
       Top = 34
       Width = 540
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
     end
     object btnbuscar: TButton
-      Left = 606
+      Left = 609
       Top = 28
       Width = 99
       Height = 33
+      Anchors = [akTop, akRight]
       Caption = 'Buscar'
       TabOrder = 1
       OnClick = btnbuscarClick
@@ -140,7 +167,8 @@ object FrmCliente: TFrmCliente
       Left = 37
       Top = 88
       Width = 671
-      Height = 120
+      Height = 145
+      Anchors = [akLeft, akTop, akRight, akBottom]
       DataSource = dsClienteLista
       TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET

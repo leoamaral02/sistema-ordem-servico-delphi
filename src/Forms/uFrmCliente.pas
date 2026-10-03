@@ -19,7 +19,6 @@ type
     edtdocumento: TEdit;
     Label2: TLabel;
     btnnovo: TButton;
-    btneditar: TButton;
     btnsalvar: TButton;
     btnexcluir: TButton;
     GroupBox2: TGroupBox;

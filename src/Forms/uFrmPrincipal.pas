@@ -4,14 +4,23 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage;
 
 type
   TFrmPrincipal = class(TForm)
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    pnlMenu: TPanel;
+    pnlConteudo: TPanel;
+    sbRelatorios: TSpeedButton;
+    sbClientes: TSpeedButton;
+    sbOrdens: TSpeedButton;
+    pnlTopo: TPanel;
+    Image1: TImage;
+    procedure sbClientesClick(Sender: TObject);
+
   private
-    { Private declarations }
+  FTelaAtual: TForm;
+  procedure MostrarTela(AClasse: TFormClass);
   public
     { Public declarations }
   end;
@@ -25,9 +34,23 @@ implementation
 
 uses uFrmCliente;
 
-procedure TFrmPrincipal.Button1Click(Sender: TObject);
+
+
+{ TFrmPrincipal }
+
+procedure TFrmPrincipal.MostrarTela(AClasse: TFormClass);
 begin
-FrmCliente.showmodal;
+  FreeAndNil(FTelaAtual);
+  FTelaAtual := AClasse.Create(Self);
+  FTelaAtual.BorderStyle := bsNone;
+  FTelaAtual.Parent := pnlConteudo;
+  FTelaAtual.Align := alClient;
+  FTelaAtual.Show;
+end;
+
+procedure TFrmPrincipal.sbClientesClick(Sender: TObject);
+begin
+   mostrartela(tFrmCliente);
 end;
 
 end.
