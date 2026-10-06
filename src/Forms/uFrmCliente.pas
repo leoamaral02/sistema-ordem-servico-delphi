@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
-  Vcl.DBGrids,uDM_Cliente;
+  Vcl.DBGrids,uDM_Cliente,System.UITypes;
 
 type
   TFrmCliente = class(TForm)

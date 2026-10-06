@@ -26,4 +26,11 @@ object DM_Cliente: TDM_Cliente
     Left = 192
     Top = 64
   end
+  object qryClienteComboLista: TFDQuery
+    Connection = DM_Conexao.FDConexao
+    SQL.Strings = (
+      'SELECT ID, NOME FROM CLIENTE ORDER BY NOME')
+    Left = 80
+    Top = 160
+  end
 end

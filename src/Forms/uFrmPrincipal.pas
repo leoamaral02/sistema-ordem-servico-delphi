@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage,uFrmOrdemServico;
 
 type
   TFrmPrincipal = class(TForm)
@@ -17,6 +17,7 @@ type
     pnlTopo: TPanel;
     Image1: TImage;
     procedure sbClientesClick(Sender: TObject);
+    procedure sbOrdensClick(Sender: TObject);
 
   private
   FTelaAtual: TForm;
@@ -51,6 +52,11 @@ end;
 procedure TFrmPrincipal.sbClientesClick(Sender: TObject);
 begin
    mostrartela(tFrmCliente);
+end;
+
+procedure TFrmPrincipal.sbOrdensClick(Sender: TObject);
+begin
+  mostrartela(tFrmOrdemServico);
 end;
 
 end.

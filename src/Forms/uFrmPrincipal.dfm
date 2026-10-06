@@ -22,10 +22,9 @@ object FrmPrincipal: TFrmPrincipal
     Height = 621
     Align = alLeft
     BevelOuter = bvNone
-    Color = clSilver
+    Color = clHighlight
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -6
     object sbRelatorios: TSpeedButton
       Left = 0
       Top = 88
@@ -36,6 +35,7 @@ object FrmPrincipal: TFrmPrincipal
       Caption = 'Relat'#243'rios'
       Flat = True
       ExplicitLeft = -6
+      ExplicitTop = 94
     end
     object sbClientes: TSpeedButton
       Left = 0
@@ -47,7 +47,6 @@ object FrmPrincipal: TFrmPrincipal
       Caption = 'Clientes'
       Flat = True
       OnClick = sbClientesClick
-      ExplicitLeft = -6
       ExplicitTop = 38
     end
     object sbOrdens: TSpeedButton
@@ -60,6 +59,7 @@ object FrmPrincipal: TFrmPrincipal
       Down = True
       Caption = 'Ordens de Servi'#231'o'
       Flat = True
+      OnClick = sbOrdensClick
       ExplicitTop = -6
     end
   end
@@ -71,9 +71,6 @@ object FrmPrincipal: TFrmPrincipal
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 186
-    ExplicitTop = 0
-    ExplicitHeight = 681
   end
   object pnlTopo: TPanel
     Left = 0
@@ -82,11 +79,9 @@ object FrmPrincipal: TFrmPrincipal
     Height = 60
     Align = alTop
     BevelOuter = bvNone
-    Color = clSilver
+    Color = clHighlight
     ParentBackground = False
     TabOrder = 2
-    ExplicitLeft = 8
-    ExplicitTop = -6
     object Image1: TImage
       Left = 0
       Top = 0

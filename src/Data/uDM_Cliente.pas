@@ -12,6 +12,7 @@ type
   TDM_Cliente = class(TDataModule)
     qryClienteLista: TFDQuery;
     qryClienteEscrita: TFDQuery;
+    qryClienteComboLista: TFDQuery;
   private
     { Private declarations }
   public
