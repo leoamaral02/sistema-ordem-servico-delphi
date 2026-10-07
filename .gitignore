@@ -7,6 +7,9 @@
 *.identcache
 *.tvsconfig
 
+# Exceção: executável para entrega da prova
+!bin/SistemaOS.exe
+
 # Arquivos locais do Delphi
 *.dsk
 *.dproj.local
