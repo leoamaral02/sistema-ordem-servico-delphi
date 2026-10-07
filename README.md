@@ -31,19 +31,8 @@ Aplicação desktop para cadastro e acompanhamento de clientes e ordens de servi
 
 O projeto utiliza Firebird 4.0 por meio do driver FireDAC `FB`. A conexão está configurada no componente `FDConexao`, em `src/Data/uDM_Conexao.dfm`. Ajuste o parâmetro `Database` para o caminho do arquivo `.FDB` no computador em que o sistema será executado. O caminho atual é específico do computador de desenvolvimento.
 
-Parâmetros usados pela conexão:
 
-```ini
-DriverID=FB
-Database=<caminho local para o arquivo .FDB>
-User_Name=<usuário do Firebird>
-Password=<senha configurada localmente>
-CharacterSet=UTF8
-```
-
-Configure a senha localmente no Delphi e evite publicar credenciais reais em repositórios ou neste arquivo.
-
-O arquivo `.FDB` está incluído no projeto. Não foi localizado um script SQL de criação das tabelas, índices e da view `VW_OS_RESUMO`; portanto, para recriar o banco do zero, será necessário preparar esse script ou fornecer um banco previamente criado.
+O arquivo `.FDB` está incluído no projeto, e também script SQL de criação das tabelas,  para recriar o banco do zero.
 
 ## Como abrir e executar
 
@@ -53,7 +42,7 @@ O arquivo `.FDB` está incluído no projeto. Não foi localizado um script SQL d
 4. Abra `SistemaOS.dproj` no Delphi.
 5. Selecione a plataforma/configuração desejada, compile e execute.
 
-O relatório externo deve permanecer em `Reports/relatorioOS.fr3`. A configuração atual do projeto gera o executável em `Win32/Debug`; para a entrega da prova, coloque o executável compilado na pasta `bin/`, conforme solicitado no enunciado.
+O relatório externo deve permanecer em `Reports/relatorioOS.fr3`. A configuração atual do projeto gera o executável em `Win32/Debug`; para a entrega da prova, coloque o executável compilado na pasta `bin/`, conforme solicitado.
 
 ## Como verificar o cálculo de SLA/atraso
 
@@ -73,15 +62,7 @@ O cálculo de atraso utiliza a view `VW_OS_RESUMO` do banco. A view precisa exis
 - A gravação da OS e de seus itens é agrupada em uma transação.
 - O FastReport utiliza o modelo externo `.fr3`, mantido na pasta `Reports`.
 
-## Limitações conhecidas
-
-- A exclusão de OS existe no DataModule, mas ainda não está ligada a uma ação da interface.
-- O total dos itens é recalculado e mostrado no formulário; a gravação do total na coluna `VALOR_TOTAL` deve ser confirmada no banco, pois não foi encontrada no código uma atualização explícita desse campo.
-- Não foi localizada a atualização de `DATA_FECHAMENTO` ao concluir uma OS.
-- Os erros são apresentados em mensagens na tela; não há gravação em arquivo de log.
-- O botão `Processar Atrasos`, se mantido na interface, ainda precisa de uma rotina associada.
-- O caminho do banco está configurado localmente e precisa ser ajustado em outro computador.
 
 ## Uso de inteligência artificial
 
-Ferramentas de inteligência artificial foram usadas como apoio na análise do projeto, na correção da localização do arquivo do relatório FastReport e na orientação sobre expressões do relatório. O candidato deve revisar, adaptar e compreender o código entregue.
+Ferramentas de inteligência artificial foram usadas como apoio na análise do projeto, erros e ajuda com algumas logicas, correção e orientação sobre expressões do relatório.
