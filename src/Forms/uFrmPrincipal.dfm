@@ -13,6 +13,7 @@ object FrmPrincipal: TFrmPrincipal
   OldCreateOrder = False
   Position = poDesktopCenter
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlMenu: TPanel
@@ -34,6 +35,7 @@ object FrmPrincipal: TFrmPrincipal
       GroupIndex = 1
       Caption = 'Relat'#243'rios'
       Flat = True
+      OnClick = sbRelatoriosClick
       ExplicitLeft = -6
       ExplicitTop = 94
     end
@@ -225,6 +227,19 @@ object FrmPrincipal: TFrmPrincipal
       Proportional = True
       Stretch = True
       ExplicitTop = -6
+    end
+    object Label1: TLabel
+      Left = 56
+      Top = 13
+      Width = 314
+      Height = 25
+      Caption = 'Sistema de Ordens de Serivi'#231'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
 end

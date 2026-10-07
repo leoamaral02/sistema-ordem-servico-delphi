@@ -54,7 +54,7 @@ type
     procedure RecalcularTotalTela;
     function ValidarAntesDeSalvar: Boolean;
   public
-    { Public declarations }
+     procedure CarregarParaEdicao(AID: Integer);
   end;
 
 var
@@ -180,6 +180,35 @@ begin
     on E: Exception do
       ShowMessage('Erro ao salvar: ' + E.Message);
   end;
+end;
+
+procedure TFrmOrdemServico.CarregarParaEdicao(AID: Integer);
+var
+  vClienteID: Integer;
+  vDataPrevista: TDateTime;
+  vStatus, vDescricao: string;
+begin
+   FOSID := AID;
+
+  DM_OrdemServico.BuscarPorID(AID, vClienteID, vDataPrevista, vStatus, vDescricao);
+
+  cboCliente.KeyValue := vClienteID;
+  dtpPrevista.Date := vDataPrevista;
+  cboStatus.ItemIndex := cboStatus.Items.IndexOf(vStatus);
+  Memo1.Lines.Text := vDescricao;
+
+  DM_OrdemServico.CarregarItensDaOS(AID, mtItens);
+  RecalcularTotalTela;
+
+  if (not (vStatus = 'Concluída')) and (not (vStatus = 'Cancelada'))
+     and (vDataPrevista > 0) and (Trunc(Now) > Trunc(vDataPrevista)) then
+  begin
+    pnlAlertaAtraso.Caption := Format(#9888' Em atraso há %d dia(s)',
+      [Trunc(Now) - Trunc(vDataPrevista)]);
+    pnlAlertaAtraso.Visible := True;
+  end
+  else
+    pnlAlertaAtraso.Visible := False;
 end;
 
 procedure TFrmOrdemServico.btnCancelarOSClick(Sender: TObject);

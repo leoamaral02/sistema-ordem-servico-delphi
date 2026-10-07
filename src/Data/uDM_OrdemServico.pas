@@ -14,6 +14,15 @@ type
     qryOSEscrita: TFDQuery;
     qryItensLista: TFDQuery;
     qryItensEscrita: TFDQuery;
+    qryDashboard: TFDQuery;
+    qryRelatorio: TFDQuery;
+    qryRelatorioID: TIntegerField;
+    qryRelatorioCLIENTE_NOME: TWideStringField;
+    qryRelatorioDATA_ABERTURA: TDateField;
+    qryRelatorioDATA_PREVISTA: TDateField;
+    qryRelatorioSTATUS: TWideStringField;
+    qryRelatorioVALOR_TOTAL: TFMTBCDField;
+    qryRelatorioEM_ATRASO: TIntegerField;
   private
     procedure ExcluirTodosItensDaOS(AOrdemID: Integer);
   public
@@ -33,6 +42,14 @@ type
     procedure ExcluirItem(AID: Integer);
     function SalvarOSCompleta(AID: Integer; AClienteID: Integer; ADataPrevista: TDateTime;
     AStatus: string; const ADescricaoProblema: string; AItens: TFDMemTable): Integer;
+    procedure BuscarContadoresDashboard(out AAbertas, AEmAndamento, AConcluidas, AEmAtraso: Integer);
+    procedure BuscarPorID(AID: Integer; out AClienteID: Integer; out ADataPrevista: TDateTime;
+    out AStatus, ADescricaoProblema: string);
+    procedure CarregarItensDaOS(AOrdemID: Integer; ADestino: TFDMemTable);
+    procedure ListarRelatorio(ADataIni, ADataFim: TDateTime;
+    const AStatus: TArray<string>; const ACliente: string;
+    AValorMin, AValorMax: Double);
+
   end;
 
 var
@@ -45,6 +62,61 @@ implementation
 {$R *.dfm}
 
 { TDM_OrdemServico }
+
+procedure TDM_OrdemServico.BuscarContadoresDashboard(out AAbertas, AEmAndamento,
+  AConcluidas, AEmAtraso: Integer);
+begin
+  qryDashboard.Close;
+  qryDashboard.Open;
+  AAbertas := qryDashboard.FieldByName('QTD_ABERTAS').AsInteger;
+  AEmAndamento := qryDashboard.FieldByName('QTD_EM_ANDAMENTO').AsInteger;
+  AConcluidas := qryDashboard.FieldByName('QTD_CONCLUIDAS').AsInteger;
+  AEmAtraso := qryDashboard.FieldByName('QTD_EM_ATRASO').AsInteger;
+  qryDashboard.Close;
+end;
+
+procedure TDM_OrdemServico.BuscarPorID(AID: Integer; out AClienteID: Integer;
+  out ADataPrevista: TDateTime; out AStatus, ADescricaoProblema: string);
+begin
+  qryOSEscrita.Close;
+  qryOSEscrita.SQL.Text := 'SELECT CLIENTE_ID, DATA_PREVISTA, STATUS, DESCRICAO_PROBLEMA ' +
+    'FROM ORDEM_SERVICO WHERE ID = :ID';
+  qryOSEscrita.ParamByName('ID').AsInteger := AID;
+  qryOSEscrita.Open;
+
+  AClienteID := qryOSEscrita.FieldByName('CLIENTE_ID').AsInteger;
+  ADataPrevista := qryOSEscrita.FieldByName('DATA_PREVISTA').AsDateTime;
+  AStatus := qryOSEscrita.FieldByName('STATUS').AsString;
+  ADescricaoProblema := qryOSEscrita.FieldByName('DESCRICAO_PROBLEMA').AsString;
+
+  qryOSEscrita.Close;
+end;
+
+procedure TDM_OrdemServico.CarregarItensDaOS(AOrdemID: Integer;
+  ADestino: TFDMemTable);
+begin
+  qryItensLista.Close;
+  qryItensLista.SQL.Text := 'SELECT DESCRICAO, QUANTIDADE, VALOR_UNITARIO ' +
+    'FROM ITEM_ORDEM WHERE ORDEM_ID = :ORDEM_ID';
+  qryItensLista.ParamByName('ORDEM_ID').AsInteger := AOrdemID;
+  qryItensLista.Open;
+
+  ADestino.EmptyDataSet;
+  qryItensLista.First;
+  while not qryItensLista.Eof do
+  begin
+    ADestino.Append;
+    ADestino.FieldByName('DESCRICAO').AsString := qryItensLista.FieldByName('DESCRICAO').AsString;
+    ADestino.FieldByName('QUANTIDADE').AsFloat := qryItensLista.FieldByName('QUANTIDADE').AsFloat;
+    ADestino.FieldByName('VALOR_UNITARIO').AsFloat := qryItensLista.FieldByName('VALOR_UNITARIO').AsFloat;
+    ADestino.FieldByName('SUBTOTAL').AsFloat :=
+    qryItensLista.FieldByName('QUANTIDADE').AsFloat * qryItensLista.FieldByName('VALOR_UNITARIO').AsFloat;
+    ADestino.Post;
+    qryItensLista.Next;
+  end;
+
+  qryItensLista.Close;
+end;
 
 procedure TDM_OrdemServico.Editar(AID, AClienteID: Integer;
   ADataPrevista: TDateTime; AStatus: string; const ADescricaoProblema: string);
@@ -178,6 +250,68 @@ begin
     qryOSLista.ParamByName('VALORMAX').AsCurrency := AValorMax;
 
   qryOSLista.Open;
+end;
+
+procedure TDM_OrdemServico.ListarRelatorio(ADataIni, ADataFim: TDateTime;
+  const AStatus: TArray<string>; const ACliente: string; AValorMin,
+  AValorMax: Double);
+const
+  TODOS: array[0..3] of string = ('Aberta', 'Em Andamento', 'Concluída', 'Cancelada');
+var
+  I: Integer;
+  vLista: TArray<string>;
+begin
+  qryRelatorio.Close;
+  qryRelatorio.SQL.Text :=
+    'SELECT ID, CLIENTE_NOME, DATA_ABERTURA, DATA_PREVISTA, STATUS, VALOR_TOTAL, EM_ATRASO ' +
+    'FROM VW_OS_RESUMO ' +
+    'WHERE (CAST(:DATAINI AS DATE) IS NULL OR DATA_ABERTURA >= :DATAINI) ' +
+    '  AND (CAST(:DATAFIM AS DATE) IS NULL OR DATA_ABERTURA <= :DATAFIM) ' +
+    '  AND STATUS IN (:S1, :S2, :S3, :S4) ' +
+    '  AND (CAST(:CLIENTE AS VARCHAR(122)) IS NULL OR CLIENTE_NOME LIKE :CLIENTE) ' +
+    '  AND (CAST(:VALORMIN AS NUMERIC(15,2)) IS NULL OR VALOR_TOTAL >= :VALORMIN) ' +
+    '  AND (CAST(:VALORMAX AS NUMERIC(15,2)) IS NULL OR VALOR_TOTAL <= :VALORMAX) ' +
+    'ORDER BY STATUS, DATA_ABERTURA';
+
+  qryRelatorio.ParamByName('DATAINI').DataType := ftDate;
+  qryRelatorio.ParamByName('DATAFIM').DataType := ftDate;
+  qryRelatorio.ParamByName('CLIENTE').DataType := ftString;
+  qryRelatorio.ParamByName('VALORMIN').DataType := ftCurrency;
+  qryRelatorio.ParamByName('VALORMAX').DataType := ftCurrency;
+  for I := 1 to 4 do
+    qryRelatorio.ParamByName('S' + IntToStr(I)).DataType := ftString;
+
+  if ADataIni = 0 then qryRelatorio.ParamByName('DATAINI').Clear
+  else qryRelatorio.ParamByName('DATAINI').AsDate := ADataIni;
+
+  if ADataFim = 0 then qryRelatorio.ParamByName('DATAFIM').Clear
+  else qryRelatorio.ParamByName('DATAFIM').AsDate := ADataFim;
+
+  if Trim(ACliente) = '' then qryRelatorio.ParamByName('CLIENTE').Clear
+  else qryRelatorio.ParamByName('CLIENTE').AsString := '%' + Trim(ACliente) + '%';
+
+  if AValorMin < 0 then qryRelatorio.ParamByName('VALORMIN').Clear
+  else qryRelatorio.ParamByName('VALORMIN').AsCurrency := AValorMin;
+
+  if AValorMax < 0 then qryRelatorio.ParamByName('VALORMAX').Clear
+  else qryRelatorio.ParamByName('VALORMAX').AsCurrency := AValorMax;
+
+
+  if Length(AStatus) = 0 then
+  begin
+    SetLength(vLista, 4);
+    for I := 0 to 3 do vLista[I] := TODOS[I];
+  end
+  else
+    vLista := AStatus;
+
+  for I := 1 to 4 do
+    if I <= Length(vLista) then
+      qryRelatorio.ParamByName('S' + IntToStr(I)).AsString := vLista[I - 1]
+    else
+      qryRelatorio.ParamByName('S' + IntToStr(I)).Clear;
+
+  qryRelatorio.Open;
 end;
 
 function TDM_OrdemServico.SalvarOSCompleta(AID, AClienteID: Integer;

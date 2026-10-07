@@ -23,7 +23,6 @@ object FrmOrdemServico: TFrmOrdemServico
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -6
     object btnNovo: TButton
       Left = 16
       Top = 10
@@ -69,7 +68,6 @@ object FrmOrdemServico: TFrmOrdemServico
     ParentFont = False
     TabOrder = 1
     Visible = False
-    ExplicitTop = 47
   end
   object GbxDadosOS: TGroupBox
     AlignWithMargins = True
@@ -193,8 +191,6 @@ object FrmOrdemServico: TFrmOrdemServico
     Align = alClient
     Caption = 'Itens'
     TabOrder = 4
-    ExplicitLeft = 17
-    ExplicitTop = 433
     DesignSize = (
       1000
       391)

@@ -1,4 +1,4 @@
-program Project1;
+program SistemaOS;
 
 uses
   Vcl.Forms,
@@ -7,7 +7,9 @@ uses
   uDM_Cliente in 'src\Data\uDM_Cliente.pas' {DM_Cliente: TDataModule},
   uFrmCliente in 'src\Forms\uFrmCliente.pas' {FrmCliente},
   uDM_OrdemServico in 'src\Data\uDM_OrdemServico.pas' {DM_OrdemServico: TDataModule},
-  uFrmOrdemServico in 'src\Forms\uFrmOrdemServico.pas' {FrmOrdemServico};
+  uFrmOrdemServico in 'src\Forms\uFrmOrdemServico.pas' {FrmOrdemServico},
+  uFrmPesquisaOS in 'src\Forms\uFrmPesquisaOS.pas' {FrmPesquisaOS},
+  uFrmRelatorio in 'src\Forms\uFrmRelatorio.pas' {FrmRelatorio};
 
 {$R *.res}
 
@@ -19,5 +21,7 @@ begin
   Application.CreateForm(TDM_Cliente, DM_Cliente);
   Application.CreateForm(TDM_OrdemServico, DM_OrdemServico);
   Application.CreateForm(TFrmOrdemServico, FrmOrdemServico);
+  Application.CreateForm(TFrmPesquisaOS, FrmPesquisaOS);
+  Application.CreateForm(TFrmRelatorio, FrmRelatorio);
   Application.Run;
 end.

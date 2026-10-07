@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage,uFrmOrdemServico;
+  Vcl.Imaging.pngimage,uFrmOrdemServico,uFrmPesquisaOS,uFrmRelatorio;
 
 type
   TFrmPrincipal = class(TForm)
@@ -16,8 +16,11 @@ type
     sbOrdens: TSpeedButton;
     pnlTopo: TPanel;
     Image1: TImage;
+    Label1: TLabel;
     procedure sbClientesClick(Sender: TObject);
     procedure sbOrdensClick(Sender: TObject);
+    procedure sbRelatoriosClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
   FTelaAtual: TForm;
@@ -39,6 +42,12 @@ uses uFrmCliente;
 
 { TFrmPrincipal }
 
+procedure TFrmPrincipal.FormShow(Sender: TObject);
+begin
+  if FTelaAtual = nil then
+    MostrarTela(TFrmPesquisaOS);
+end;
+
 procedure TFrmPrincipal.MostrarTela(AClasse: TFormClass);
 begin
   FreeAndNil(FTelaAtual);
@@ -56,7 +65,12 @@ end;
 
 procedure TFrmPrincipal.sbOrdensClick(Sender: TObject);
 begin
-  mostrartela(tFrmOrdemServico);
+  mostrartela(tFrmpesquisaos);
+end;
+
+procedure TFrmPrincipal.sbRelatoriosClick(Sender: TObject);
+begin
+    MostrarTela(TFrmRelatorio);
 end;
 
 end.

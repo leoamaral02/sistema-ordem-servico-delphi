@@ -59,12 +59,80 @@ object DM_OrdemServico: TDM_OrdemServico
   end
   object qryItensLista: TFDQuery
     Connection = DM_Conexao.FDConexao
-    Left = 232
-    Top = 136
+    Left = 264
+    Top = 24
   end
   object qryItensEscrita: TFDQuery
     Connection = DM_Conexao.FDConexao
-    Left = 320
-    Top = 128
+    Left = 352
+    Top = 24
+  end
+  object qryDashboard: TFDQuery
+    Connection = DM_Conexao.FDConexao
+    SQL.Strings = (
+      'SELECT'
+      
+        '  SUM(CASE WHEN STATUS = '#39'Aberta'#39' THEN 1 ELSE 0 END) AS QTD_ABER' +
+        'TAS,'
+      
+        '  SUM(CASE WHEN STATUS = '#39'Em Andamento'#39' THEN 1 ELSE 0 END) AS QT' +
+        'D_EM_ANDAMENTO,'
+      
+        '  SUM(CASE WHEN STATUS = '#39'Conclu'#237'da'#39' THEN 1 ELSE 0 END) AS QTD_C' +
+        'ONCLUIDAS,'
+      
+        '  SUM(CASE WHEN EM_ATRASO = 1 THEN 1 ELSE 0 END) AS QTD_EM_ATRAS' +
+        'O'
+      'FROM VW_OS_RESUMO')
+    Left = 80
+    Top = 168
+  end
+  object qryRelatorio: TFDQuery
+    Connection = DM_Conexao.FDConexao
+    SQL.Strings = (
+      'SELECT '
+      '  ID, '
+      '  CLIENTE_NOME, '
+      '  DATA_ABERTURA, '
+      '  DATA_PREVISTA, '
+      '  STATUS, '
+      '  VALOR_TOTAL, '
+      '  EM_ATRASO'
+      'FROM VW_OS_RESUMO'
+      'WHERE 1 = 0')
+    Left = 264
+    Top = 160
+    object qryRelatorioID: TIntegerField
+      FieldName = 'ID'
+      Origin = 'ID'
+    end
+    object qryRelatorioCLIENTE_NOME: TWideStringField
+      FieldName = 'CLIENTE_NOME'
+      Origin = 'CLIENTE_NOME'
+      Size = 120
+    end
+    object qryRelatorioDATA_ABERTURA: TDateField
+      FieldName = 'DATA_ABERTURA'
+      Origin = 'DATA_ABERTURA'
+    end
+    object qryRelatorioDATA_PREVISTA: TDateField
+      FieldName = 'DATA_PREVISTA'
+      Origin = 'DATA_PREVISTA'
+    end
+    object qryRelatorioSTATUS: TWideStringField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Size = 15
+    end
+    object qryRelatorioVALOR_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object qryRelatorioEM_ATRASO: TIntegerField
+      FieldName = 'EM_ATRASO'
+      Origin = 'EM_ATRASO'
+    end
   end
 end

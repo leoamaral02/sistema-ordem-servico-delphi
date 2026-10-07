@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="6.9.14" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="167935" PreviewOptions.Zoom="1" PrintOptions.Printer="Padrão" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="46302,0319732407" ReportOptions.Description.Text="" ReportOptions.LastChange="46302,5367360648" ScriptLanguage="PascalScript" ScriptText.Text="&#13;&#10;begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBOS" DataSetName="frxDBOS"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" HGuides.Text="" VGuides.Text="" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" HGuides.Text="" VGuides.Text="" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" Frame.Typ="0" MirrorMode="0">
+    <TfrxReportTitle Name="ReportTitle1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="41,57483" Left="0" Top="18,89765" Width="718,1107">
+      <TfrxMemoView Name="Memo23" AllowVectorExport="True" Left="151,1812" Top="3,77953" Width="404,40971" Height="26,45671" Font.Charset="1" Font.Color="0" Font.Height="-21" Font.Name="Arial" Font.Style="1" Frame.Typ="0" ParentFont="False" Text="RELATÓRIO DE ORDENS DE SERVIÇO"/>
+    </TfrxReportTitle>
+    <TfrxPageHeader Name="PageHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="41,57483" Left="0" Top="83,14966" Width="718,1107">
+      <TfrxMemoView Name="Memo11" AllowVectorExport="True" Left="3,77953" Top="0" Width="143,62214" Height="18,89765" DisplayFormat.Kind="fkDateTime" Frame.Typ="0" Text="Emitido em: [Date]"/>
+      <TfrxMemoView Name="Memo12" AllowVectorExport="True" Left="3,77953" Top="22,67718" Width="22,67718" Height="18,89765" Frame.Typ="0" Text="ID"/>
+      <TfrxMemoView Name="Memo13" AllowVectorExport="True" Left="64,25201" Top="22,67718" Width="188,9765" Height="18,89765" Frame.Typ="0" Text="Cliente"/>
+      <TfrxMemoView Name="Memo14" AllowVectorExport="True" Left="266,78757" Top="22,67718" Width="75,5906" Height="18,89765" Frame.Typ="0" Text="Abertura"/>
+      <TfrxMemoView Name="Memo15" AllowVectorExport="True" Left="461,10266" Top="22,67718" Width="52,91342" Height="18,89765" Frame.Typ="0" Text="Status"/>
+      <TfrxMemoView Name="Memo16" AllowVectorExport="True" Left="559,37044" Top="22,67718" Width="56,69295" Height="18,89765" Frame.Typ="0" Text="Valor"/>
+      <TfrxMemoView Name="Memo17" AllowVectorExport="True" Left="638,74057" Top="22,67718" Width="75,5906" Height="18,89765" Frame.Typ="0" Text="Dias Atraso"/>
+      <TfrxMemoView Name="Memo18" AllowVectorExport="True" Left="360,27582" Top="22,67718" Width="68,03154" Height="18,89765" Frame.Typ="0" Text="Prevista"/>
+    </TfrxPageHeader>
+    <TfrxGroupHeader Name="GroupHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="15,11812" Left="0" Top="185,19697" Width="718,1107" Condition="frxDBOS.&#34;STATUS&#34;"/>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="56,69295" Left="0" Top="222,99227" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="frxDBOS" DataSetName="frxDBOS" RowCount="0">
+      <TfrxMemoView Name="Memo2" AllowVectorExport="True" Left="3,77953" Top="15,11812" Width="52,91342" Height="18,89765" Frame.Typ="0" Text="[frxDBOS.&#34;ID&#34;]"/>
+      <TfrxMemoView Name="Memo3" AllowVectorExport="True" Left="64,25201" Top="15,11812" Width="188,9765" Height="18,89765" Frame.Typ="0" Text="[frxDBOS.&#34;CLIENTE_NOME&#34;]"/>
+      <TfrxMemoView Name="Memo4" AllowVectorExport="True" Left="260,78757" Top="15,11812" Width="94,48825" Height="18,89765" Frame.Typ="0" Text="[FormatDateTime('dd/mm/yyyy', &#60;frxDBOS.&#34;DATA_ABERTURA&#34;&#62;)]"/>
+      <TfrxMemoView Name="Memo5" AllowVectorExport="True" Left="362,83488" Top="15,11812" Width="94,48825" Height="18,89765" Frame.Typ="0" Text="[IIF(&#60;frxDBOS.&#34;DATA_PREVISTA&#34;&#62; = Null, '', FormatDateTime('dd/mm/yyyy', &#60;frxDBOS.&#34;DATA_PREVISTA&#34;&#62;))]"/>
+      <TfrxMemoView Name="Memo6" AllowVectorExport="True" Left="457,32313" Top="15,11812" Width="94,48825" Height="18,89765" Frame.Typ="0" Text="[frxDBOS.&#34;STATUS&#34;]"/>
+      <TfrxMemoView Name="Memo7" AllowVectorExport="True" Left="559,37044" Top="15,11812" Width="94,48825" Height="18,89765" Frame.Typ="0" Text="[FormatFloat('#,##0.00', &#60;frxDBOS.&#34;VALOR_TOTAL&#34;&#62;)]"/>
+      <TfrxLineView Name="Line1" AllowVectorExport="True" Left="3,77953" Top="41,57483" Width="710,55164" Height="0" Color="0" Frame.Typ="0" Diagonal="True"/>
+      <TfrxMemoView Name="Memo8" AllowVectorExport="True" Left="653,85869" Top="15,11812" Width="64,25201" Height="18,89765" Frame.Typ="0" Text="[IIF(&#60;frxDBOS.&#34;EM_ATRASO&#34;&#62; = 1, IntToStr(Trunc(Date) - Trunc(&#60;frxDBOS.&#34;DATA_PREVISTA&#34;&#62;)) + ' dias', '-')]"/>
+    </TfrxMasterData>
+    <TfrxGroupFooter Name="GroupFooter1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="41,57483" Left="0" Top="302,3624" Width="718,1107">
+      <TfrxMemoView Name="Memo9" AllowVectorExport="True" Left="3,77953" Top="3,77953" Width="321,26005" Height="18,89765" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="0" ParentFont="False" Text="Total de OS neste status: [COUNT(MasterData1)]"/>
+      <TfrxMemoView Name="Memo10" AllowVectorExport="True" Left="422,10266" Top="3,77953" Width="230,55133" Height="18,89765" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="0" ParentFont="False" Text="Soma dos valores: R$ [FormatFloat('#,##0.00', SUM(&#60;frxDBOS.&#34;VALOR_TOTAL&#34;&#62;, MasterData1))]"/>
+    </TfrxGroupFooter>
+    <TfrxReportSummary Name="ReportSummary1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="154,96073" Left="0" Top="404,40971" Width="718,1107">
+      <TfrxMemoView Name="Memo19" AllowVectorExport="True" Left="7,55906" Top="18,77953" Width="166,29932" Height="18,89765" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Frame.Typ="0" ParentFont="False" Text="RESUMO GERAL"/>
+      <TfrxMemoView Name="Memo20" AllowVectorExport="True" Left="7,55906" Top="43,01577" Width="377,953" Height="18,89765" Frame.Typ="0" Text="Total de Ordens de Serviço: [COUNT(MasterData1)]"/>
+      <TfrxMemoView Name="Memo21" AllowVectorExport="True" Left="7,55906" Top="68,03154" Width="377,953" Height="18,89765" Frame.Typ="0" Text="Soma total: R$ [FormatFloat('#,##0.00', SUM(&#60;frxDBOS.&#34;VALOR_TOTAL&#34;&#62;, MasterData1))]"/>
+      <TfrxMemoView Name="Memo22" AllowVectorExport="True" Left="8,33859" Top="93,82684" Width="377,953" Height="18,89765" Frame.Typ="0" Text="OS atrasadas: [SUM(&#60;frxDBOS.&#34;EM_ATRASO&#34;&#62;, MasterData1)]"/>
+    </TfrxReportSummary>
+  </TfrxReportPage>
+</TfrxReport>
